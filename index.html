@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>미니 게임</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="app">
+        <section id="screen-home" class="screen">
+            <h1 id="home-title" tabindex="-1">미니 게임</h1>
+            <button id="btn-game-fruit" class="game-item" type="button">
+                <canvas id="home-icon-fruit" class="icon-lg" aria-hidden="true"></canvas>
+                <span class="game-text">
+                    <strong>과일 갈림길</strong>
+                    <span>귤과 배를 알맞은 바구니로 보내요</span>
+                </span>
+            </button>
+            <button id="btn-game-sprout" class="game-item" type="button">
+                <canvas id="home-icon-sprout" class="icon-lg" aria-hidden="true"></canvas>
+                <span class="game-text">
+                    <strong>새싹 찾기</strong>
+                    <span>잠깐 보여 주는 새싹 자리를 기억해요</span>
+                </span>
+            </button>
+        </section>
+
+        <section id="screen-landing" class="screen" hidden>
+            <div class="panel">
+                <canvas id="hero-canvas" class="hero" aria-hidden="true"></canvas>
+                <h2 id="landing-title" tabindex="-1">과일 갈림길</h2>
+                <p id="landing-text"></p>
+                <button id="btn-ad-start" class="btn" type="button">광고보고 게임하기</button>
+                <p class="notice">광고를 끝까지 보면 게임 1판. 1점에 1코인</p>
+                <p class="notice">코인은 앱 안에서만 쓰고 현금으로 바꿀 수 없어요</p>
+            </div>
+            <button id="btn-landing-home" class="btn-sub" type="button">게임 목록</button>
+        </section>
+
+        <section id="screen-ad" class="screen" hidden>
+            <div class="panel">
+                <h2 id="ad-title" tabindex="-1">광고를 불러오는 중</h2>
+                <p id="ad-text">잠시만 기다려 주세요.</p>
+                <button id="btn-start" class="btn" type="button" hidden>게임 시작</button>
+            </div>
+        </section>
+
+        <section id="screen-failed" class="screen" hidden>
+            <div class="panel">
+                <h2 id="failed-title" tabindex="-1">광고를 보지 못했어요</h2>
+                <p id="failed-text"></p>
+                <p class="notice">광고를 끝까지 보면 게임 1판. 1점에 1코인</p>
+                <p class="notice">코인은 앱 안에서만 쓰고 현금으로 바꿀 수 없어요</p>
+                <button id="btn-retry" class="btn" type="button">다시 시도</button>
+            </div>
+            <button id="btn-failed-home" class="btn-sub" type="button">게임 목록</button>
+        </section>
+
+        <section id="screen-countdown" class="screen center" hidden>
+            <h2 id="countdown-title" class="sr-only" tabindex="-1" aria-describedby="count-rule-left count-rule-right">곧 시작해요</h2>
+            <div class="rule-preview">
+                <div class="rule-side">
+                    <canvas id="count-icon-left" class="icon" aria-hidden="true"></canvas>
+                    <span id="count-rule-left"></span>
+                </div>
+                <div class="rule-side">
+                    <canvas id="count-icon-right" class="icon" aria-hidden="true"></canvas>
+                    <span id="count-rule-right"></span>
+                </div>
+            </div>
+            <div id="count-num" class="count-num" aria-hidden="true">3</div>
+        </section>
+
+        <section id="screen-game" class="screen game" hidden>
+            <h2 id="game-title" class="sr-only" tabindex="-1">게임 진행 중</h2>
+            <div class="hud">
+                <div class="hud-item">시간 <strong id="hud-time">10.0</strong></div>
+                <div id="rule-text" class="hud-rule"></div>
+                <div class="hud-item">점수 <strong id="hud-score">0</strong></div>
+            </div>
+            <canvas id="game-canvas" class="stage" aria-hidden="true"></canvas>
+            <div class="controls">
+                <button id="btn-left" class="btn side-btn" type="button">
+                    <canvas id="icon-left" class="icon" aria-hidden="true"></canvas>
+                    <span aria-hidden="true">&larr; 왼쪽</span>
+                </button>
+                <button id="btn-right" class="btn side-btn" type="button">
+                    <canvas id="icon-right" class="icon" aria-hidden="true"></canvas>
+                    <span aria-hidden="true">오른쪽 &rarr;</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="screen-sprout" class="screen game" hidden>
+            <h2 id="sprout-title" class="sr-only" tabindex="-1">게임 진행 중</h2>
+            <div class="hud">
+                <div class="hud-item">시간 <strong id="sprout-time">20.0</strong></div>
+                <div id="sprout-hint" class="hud-rule"></div>
+                <div class="hud-item">점수 <strong id="sprout-score">0</strong></div>
+            </div>
+            <div class="pots-area">
+                <div id="pots" class="pots"></div>
+            </div>
+            <p id="sprout-status" class="sr-only" role="status"></p>
+        </section>
+
+        <section id="screen-result" class="screen" hidden>
+            <div id="result" class="panel" aria-live="polite">
+                <h2 id="result-title" tabindex="-1" aria-describedby="result-game-line result-score-line result-coins-line">결과</h2>
+                <p id="result-game-line"><strong id="result-game"></strong></p>
+                <p id="result-score-line">점수 <strong id="result-score">0</strong>점</p>
+                <p id="result-coins-line">코인 <strong id="result-coins">0</strong>개</p>
+            </div>
+            <div class="panel">
+                <button id="btn-again" class="btn" type="button">광고보고 다시 하기</button>
+                <p class="notice">광고를 끝까지 보면 게임 1판. 1점에 1코인</p>
+                <p class="notice">코인은 앱 안에서만 쓰고 현금으로 바꿀 수 없어요</p>
+            </div>
+            <button id="btn-result-home" class="btn-sub" type="button">게임 목록</button>
+        </section>
+    </main>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>

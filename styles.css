@@ -1,0 +1,392 @@
+:root {
+    --bg: #d6f3e4;
+    --panel: #effbf5;
+    --ink: #103323;
+    --muted: #35604b;
+    --accent: #ffa64d;
+    --accent-ink: #14301f;
+    --orange: #f5821f;
+    --pear: #9ccc3c;
+    --belt: #b7e4cb;
+    --basket: #8fcfae;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0f2a20;
+        --panel: #17382c;
+        --ink: #e4f7ec;
+        --muted: #b4d6c3;
+        --accent: #ffb872;
+        --accent-ink: #14301f;
+        --orange: #ff9a3d;
+        --pear: #b5dc5a;
+        --belt: #24493a;
+        --basket: #2f6350;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-rounded, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.app {
+    max-width: 480px;
+    margin: 0 auto;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    display: flex;
+    padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+        max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+
+.screen {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: fit-content;
+    gap: 16px;
+}
+
+.screen.center {
+    align-items: center;
+}
+
+.panel {
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+h1,
+h2 {
+    margin: 0;
+    line-height: 1.25;
+}
+
+p {
+    margin: 0;
+}
+
+.notice {
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+
+.btn {
+    min-height: 48px;
+    padding: 0 28px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+}
+
+h1:focus,
+h2:focus {
+    outline: none;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.hero {
+    width: 100%;
+    max-width: 240px;
+    height: 100px;
+    align-self: center;
+}
+
+.rule-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+}
+
+.rule-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 12px;
+    font-weight: 700;
+}
+
+.rule-side .icon {
+    width: 56px;
+    height: 56px;
+}
+
+.count-num {
+    font-size: 7rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.game {
+    justify-content: flex-start;
+    gap: 8px;
+    min-height: 0;
+}
+
+.hud {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 8px 16px;
+    min-height: 44px;
+}
+
+.hud-item:last-child {
+    text-align: right;
+}
+
+.hud-rule {
+    font-size: 0.875rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+.stage {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    background: var(--panel);
+    border-radius: 20px;
+    display: block;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.side-btn {
+    min-height: 88px;
+    min-width: 72px;
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+}
+
+/* 게임 목록 항목. 항목 전체가 하나의 버튼 */
+.game-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    min-height: 88px;
+    padding: 20px;
+    border: 0;
+    border-radius: 20px;
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.12s ease;
+}
+
+.game-item:active {
+    transform: scale(0.98);
+}
+
+.game-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+
+.game-text strong {
+    color: var(--ink);
+    font-size: 1.125rem;
+}
+
+.icon-lg {
+    flex: none;
+    width: 56px;
+    height: 56px;
+}
+
+.btn-sub {
+    min-height: 48px;
+    padding: 0 24px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+/* 새싹 찾기 화분판. 남는 공간 안에서 항상 정사각형으로 두고 가운데 정렬한다 */
+.pots-area {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pots {
+    width: min(calc(100vw - 28px), 60vh, 480px);
+    aspect-ratio: 1 / 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 8px;
+}
+
+/* 가려진 화분은 16칸 모두 같은 장식(위에서 본 화분: 안쪽 흙색 원) */
+.pot {
+    min-width: 44px;
+    min-height: 44px;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    background-color: var(--basket);
+    background-image: radial-gradient(circle at center, var(--accent-ink) 0 38%, transparent 39%);
+    cursor: pointer;
+    touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease;
+}
+
+.pot.is-open {
+    background-color: var(--panel);
+    background-image: none;
+}
+
+.pot canvas {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+    animation: pot-reveal 0.15s ease-out;
+}
+
+@keyframes pot-reveal {
+    from {
+        opacity: 0;
+        transform: scaleX(0.2);
+    }
+}
+
+.pot:focus-visible {
+    outline-offset: -5px;
+}
+
+/* 180px대 화면에서는 .pots만 여백을 넘어 176px을 확보하고 칸을 맞댄다 */
+@media (max-width: 219px) {
+    /* 안내 문구를 아랫줄로 내려, 문구가 바뀌어도 HUD 높이와 판 위치가 그대로다 */
+    #screen-sprout .hud {
+        grid-template-columns: 1fr auto;
+        gap: 0 8px;
+        padding: 6px 12px;
+        font-size: 0.8125rem;
+        white-space: nowrap;
+    }
+
+    #screen-sprout .hud-rule {
+        grid-row: 2;
+        grid-column: 1 / -1;
+        font-size: 0.8125rem;
+    }
+
+    .pots {
+        width: min(100vw, 60vh);
+        gap: 0;
+    }
+
+    .pot {
+        border: 3px solid var(--bg);
+        background-clip: padding-box;
+        box-shadow: inset 0 0 0 2px var(--ink);
+    }
+}
+
+/* cq 단위를 지원하면 남는 공간 기준으로 크기를 다시 정한다. 미지원이면 위의 vw/vh 폭을 쓴다 */
+@supports (width: 1cqw) {
+    .pots-area {
+        container-type: size;
+    }
+
+    .pots {
+        width: min(100cqw, 100cqh, 480px);
+    }
+
+    @media (max-width: 219px) {
+        .pots {
+            width: min(calc(100cqw + 28px), 100cqh);
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
